@@ -1,0 +1,18 @@
+diff --git a/node_modules/integer/binding.gyp b/node_modules/integer/binding.gyp
+index dda3dc9..eff9698 100644
+--- a/node_modules/integer/binding.gyp
++++ b/node_modules/integer/binding.gyp
+@@ -56,11 +56,11 @@
+       'target_name': 'integer',
+       'sources': ['src/integer.cpp'],
+       'cflags': [
+-        '-std=c++11',
++        '-std=c++14',
+       ],
+       'xcode_settings': {
+         'OTHER_CPLUSPLUSFLAGS': [
+-          '-std=c++11',
++          '-std=c++14',
+           '-stdlib=libc++',
+         ],
+       },
