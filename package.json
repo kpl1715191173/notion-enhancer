@@ -6,7 +6,7 @@
   "description": "The all-in-one workspace for your notes and tasks, but enhanced",
   "dependencies": {
     "@sentry/electron": "2.4.0",
-    "better-sqlite3": "git://github.com/makenotion/better-sqlite3.git#0d1ffa139d76625ab99d856bb3adc0c920ce609f",
+    "better-sqlite3": "5.4.3",
     "bufferutil": "4.0.3",
     "cld": "2.7.0",
     "electron-log": "4.1.1",
