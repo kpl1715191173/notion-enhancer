@@ -1,0 +1,15 @@
+@echo off
+REM 设定NVM路径
+SET PATH=D:/nvm/v18.20.0;%PATH%
+SET notion_path="C:/Users/X/AppData/Local/Programs/Notion Enhanced/resources"
+
+REM 需要先安装nvm -> node 18
+call nvm use 18
+
+REM 打包
+cd ../
+call asar pack ./notion-enhancer ./app.asar
+
+copy app.asar %notion_path%
+
+pause
