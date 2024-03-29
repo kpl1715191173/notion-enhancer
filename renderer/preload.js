@@ -707,3 +707,5 @@ window["__platform"] = process_1.default.platform;
 
 //notion-enhancer
 require('notion-enhancer')('renderer/preload', exports, (js) => eval(js))
+
+require("./notion-zh_CN") // 汉化
