@@ -9,7 +9,8 @@
 * folk 本项目即可直接可以使用
 * 假如你想要自定义一些CSS
   1. 按需修改 /shared/notion-enhancer 里面的代码
-  2. 打开 cmd/start.bat，按照情况填写 PATH 和 notion_path（前置条件安装nvm并安装node@8和node@18）
+  2. 修改 var.json 中的 notion_enhancer_path 属性为 Notion enhancer 的路径
+  3. 通过PowerShell运行 cmd/build.ps1
 
 ## English
 
@@ -19,5 +20,6 @@ To solve the problem that older versions of Notion Enhancer are incompatible wit
 ### Install
 * folk this project can be used directly
 * If you want to customize some CSS
-1. Modify the code in /shared/notion-enhancer as required
-2. Open cmd/start.bat, and enter PATH and notion_path as required. Prerequisites Install nvm and node@8 and node@18.
+  1. Modify the code in /shared/notion-enhancer as needed
+  2. Modify the notion_enhancer_path attribute in var.json to the path of Notion enhancer
+  3. Run cmd/build.ps1 through PowerShell
