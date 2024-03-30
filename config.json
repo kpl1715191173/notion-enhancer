@@ -1,0 +1,10 @@
+{
+  "env": "production",
+  "isLocalhost": false,
+  "domainBaseUrl": "https://www.notion.so",
+  "protocol": "notion",
+  "desktopAppId": "notion.id",
+  "logglyToken": "edcca201-4028-4ef1-bbb1-c78b430dd74e",
+  "offline": true,
+  "desktopS3Url": "https://desktop-release.notion-static.com"
+}

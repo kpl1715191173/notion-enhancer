@@ -1,0 +1,5 @@
+{
+      "name": "notion-enhancer",
+      "version": "0.11.0-dev",
+      "main": "init.cjs"
+    }

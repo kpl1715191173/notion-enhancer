@@ -1,0 +1,9 @@
+# builds
+dist/
+
+# yarn
+.yarn/
+.pnp.*
+
+# idea
+.idea
