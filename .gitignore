@@ -7,3 +7,6 @@ node_modules/
 # yarn
 .yarn/
 .pnp.*
+
+# idea
+.idea
