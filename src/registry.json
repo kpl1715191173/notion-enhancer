@@ -1,9 +1,0 @@
-[
-  "core",
-  "extensions/titlebar",
-  "extensions/topbar",
-  "extensions/scroller",
-  "extensions/outliner",
-  "extensions/word-counter",
-  "themes/classic-dark"
-]
