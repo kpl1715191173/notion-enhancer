@@ -1,0 +1,98 @@
+@import url(./font.css);
+
+/* 用户自定义配置 */
+* {
+  /* 💡 以下字体设置完全可以取代Notion Enhancer的font-chooser */
+  /* sans-serif 字体(默认) */
+  --font_chooser--sans: 'HYTANGMEIREN', 'HYTANGMEIREN-OL';
+  /* serif 字体(衬线) */
+  --font_chooser--serif: '仓耳今楷05-6763', '仓耳今楷05-6763-OL';
+  /* monospace 字体(等线) */
+  --font_chooser--mono: '方正屏显雅宋简体', '方正屏显雅宋简体-OL';
+  /* code 字体 */
+  --font_chooser--code: 'YaHei Consolas Hybrid', 'YaHei Consolas Hybrid-OL';
+
+  /* 标题字体大小 */
+  --sub_title_font_size: 12px;
+}
+
+/* Notion 全局设置 */
+* {
+  --theme--font_sans: var(--font_chooser--sans) !important;
+  --theme--font_serif: var(--font_chooser--serif) !important;
+  --theme--font_mono: var(--font_chooser--mono) !important;
+  --theme--font_code: var(--font_chooser--code) !important;
+}
+
+/*
+* Notion CSS 修改说明 1️⃣
+* 对于字体而言：
+* 默认字体和衬线体 -> 
+* line-height: 1.5; letter-spacing: 0em;
+* 对于等宽体 ->
+* line-height: 1.6; letter-spacing: 0.055em;
+* 所以会出现正文文本观看体验增强
+* 但是代码字体字距会的很大，且代码行号字体也不美观
+*
+*/
+/* 代码间距、字体统一 */
+.notion-code-block {
+  font-family: 'YaHei Consolas Hybrid' !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0em !important;
+}
+.code_line_numbers--plain {
+  /* 📦 代码行数对应插件Notion Boost */
+  /* 以下为插件源代码，参考学习 */
+  font-size: 85%;
+  text-align: right;
+  position: absolute;
+  right: calc(100% - 30px);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* 行间代码间距修正 */
+.notion-page-content [style*='color:#EB5757']:not(.notion-text-mention-token) {
+  letter-spacing: 0;
+}
+
+/*
+* Notion CSS 修改说明 2️⃣
+* 修改Notion Enhancer组件造成的非全屏打开页面padding问题
+*/
+.notion-peek-renderer .notion-page-content {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/*
+* Notion CSS 修改说明 3️⃣
+* 关于块的标题的优化，等线字体下显得标题和块之间的主次级区分不够
+*/
+/* 3.1 代码标题 */
+.notion-code-block>div>div>div:nth-child(4)>div,
+/* 3.2 文件标题 */
+.notion-file-block>div>div:nth-child(2)>div.notranslate,
+/* 3.3 图片标题 */
+.notion-image-block>div>div:last-child>div,
+/* 3.4 书签标题 */
+.notion-bookmark-block>div>div:last-child>div:first-child {
+  font-size: var(--sub_title_font_size) !important;
+}
+
+/*
+* Notion CSS 修改说明 4️⃣
+* quote 引号的颜色
+*/
+.notion-quote-block>blockquote>div {
+  border-left-color: #b3e5fc !important;
+}
+
+/*
+* Notion CSS 修改说明 5️⃣
+* 弹出窗口内容左偏移
+*/
+.layout-center-peek>.layout-editor>.notion-page-content>.pseudoSelection {
+  width: 100%;
+}
