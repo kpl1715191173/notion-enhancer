@@ -7,3 +7,6 @@ dist/
 
 # idea
 .idea
+
+# config
+/cmd/var.json
