@@ -54,7 +54,7 @@
 
 /* 行间代码间距修正 */
 .notion-page-content [style*='color:#EB5757']:not(.notion-text-mention-token) {
-  letter-spacing: 0;
+  letter-spacing: 0 !important;
 }
 
 /*
@@ -95,4 +95,13 @@
 */
 .layout-center-peek>.layout-editor>.notion-page-content>.pseudoSelection {
   width: 100%;
+}
+
+/*
+* Notion CSS 修改说明 6️⃣
+* light模式弹窗UI异常
+*/
+.notion-light-theme .notion-overlay-container div[data-overlay="true"]>div>div[aria-live="polite"] {
+  background-color: #0f0f0f !important;
+  color: #d1d1d1 !important;
 }
