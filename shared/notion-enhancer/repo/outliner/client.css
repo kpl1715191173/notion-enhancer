@@ -16,31 +16,34 @@
   overflow-y: scroll;
   overflow-x: hidden;
 }
+#enhancer--panel-content .outliner--header:not([style='--outliner--indent:0px;'])::before {
+  border-left: none;
+}
 
 .outliner--header {
-position: relative;
-margin: 0 -1rem;
-padding: 0 1rem;
-display: block;
-font-size: 14px;
-line-height: 2.2;
-white-space: nowrap;
-overflow: hidden;
-user-select: none;
-text-overflow: ellipsis;
-text-decoration: none;
-text-indent: var(--outliner--indent);
-color: inherit;
-cursor: pointer !important;
-transition: background 20ms ease-in;
+  position: relative;
+  margin: 0 -1rem;
+  padding: 0 1rem;
+  display: block;
+  font-size: 14px;
+  line-height: 2.2;
+  white-space: nowrap;
+  overflow: hidden;
+  user-select: none;
+  text-overflow: ellipsis;
+  text-decoration: none;
+  text-indent: var(--outliner--indent);
+  color: inherit;
+  cursor: pointer !important;
+  transition: background 20ms ease-in;
 }
 .outliner--header:hover {
-background: var(--theme--ui_interactive-hover);
+  background: var(--theme--ui_interactive-hover);
 }
 
 .outliner--header:empty::after {
-color: var(--theme--text_secondary);
-content: attr(placeholder);
+  color: var(--theme--text_secondary);
+  content: attr(placeholder);
 }
 
 /* indentation lines */
