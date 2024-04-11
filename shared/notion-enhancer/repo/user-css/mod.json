@@ -1,0 +1,31 @@
+{
+  "name": "user css",
+  "id": "969901fb-3529-464e-ac69-90e7a0d35cef",
+  "version": "0.0.1",
+  "description": "user-customized CSS styles. 1. Create a page and make it public; 2. Add one or more code blocks (code blocks cannot be wrapped by callouts or folding blocks); 3. Write the CSS styles you need; 4. You can add a title to the code block, which makes it easier to find the corresponding code in the developer tools.",
+  "preview": "user-css.png",
+  "tags": ["extension", "customisation"],
+  "authors": [
+    {
+      "name": "Alan Lee",
+      "homepage": "https://github.com/kpl1715191173",
+      "avatar": "https://avatars.githubusercontent.com/u/57619369"
+    }
+  ],
+  "js": {
+    "client": ["client.mjs"]
+  },
+
+  "css": {
+    "client": ["client.css"]
+  },
+  "options": [
+    {
+      "type": "text",
+      "key": "pageId",
+      "label": "Your customized page's id",
+      "tooltip": "First you need to add one or more code blocks to **a public page** and write CSS code in it. We will get the CSS code inside and inject it into Notion.",
+      "value": ""
+    }
+  ]
+}
