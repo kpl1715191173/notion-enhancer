@@ -12,5 +12,6 @@
   "extensions/no-peeking",
   "extensions/focus",
   "themes/classic-dark",
-  "themes/material-ocean"
+  "themes/material-ocean",
+  "extensions/mermaid-replacement"
 ]

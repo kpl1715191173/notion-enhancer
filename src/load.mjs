@@ -11,8 +11,6 @@ export default (async () => {
 
   // prettier-ignore
   const { enhancerUrl, platform } = globalThis.__enhancerApi,
-    signedIn = localStorage["LRU:KeyValueStore2:current-user-id"],
-    pageLoaded = /(^\/$)|((-|\/)[0-9a-f]{32}((\?.+)|$))/.test(location.pathname),
     IS_MENU = location.href.startsWith(enhancerUrl("core/menu/index.html")),
     IS_TABS = /\.webpack\/renderer\/tabs\/index.html$/.test(location.href),
     IS_ELECTRON = ['linux', 'win32', 'darwin'].includes(platform),
@@ -31,7 +29,8 @@ export default (async () => {
   });
 
   if (!IS_MENU && !IS_TABS) {
-    if (!signedIn || !pageLoaded) return;
+    // Current workspace routes and public notion.site pages do not share the
+    // old page-ID URL pattern or the signed-in localStorage marker.
     console.log("notion-enhancer: loading...");
   }
 

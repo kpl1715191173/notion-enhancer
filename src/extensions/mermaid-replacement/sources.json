@@ -1,0 +1,10 @@
+{
+  "version": "12.1.0",
+  "packageUrl": "https://registry.npmjs.org/mermaid/-/mermaid-12.1.0.tgz",
+  "notionUrl": "https://app.notion.com/_assets/mermaid-4400cf91997bf052.js",
+  "chunkId": 86505,
+  "moduleId": 74731,
+  "notionSha256": "f2d16b429875a4f0815c38318e2574d1437f0e8b157389b6d92672d2b919f4d7",
+  "vendorSha256": "6484afc32872a3aa16cac9a76ba1816a1ed4cc870a6593cc2e17757750f518b2",
+  "injection": "MV3 isolated bootstrap inserts a nonce-aware page script; Rspack factory hook"
+}

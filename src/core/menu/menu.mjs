@@ -275,3 +275,19 @@ addEventListener("message", async (event) => {
     icon: event.data?.icon ?? useState(["icon"])[0],
   });
 });
+
+// The options page can also be opened directly from extension settings.
+if (parent === window) {
+  importApi().then(async () => {
+    hookIntoState();
+    const { getMods, modDatabase, setState } = globalThis.__enhancerApi,
+      core = (await getMods()).find((mod) => mod._src === "core"),
+      db = await modDatabase(core.id);
+    setState({
+      rerender: true,
+      theme: matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light",
+      icon: await db.get("menuButtonIconStyle"),
+      hotkey: await db.get("openMenuHotkey"),
+    });
+  }).catch(console.error);
+}

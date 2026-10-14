@@ -140,8 +140,10 @@ if (IS_ELECTRON) {
     });
   });
 } else {
-  const notionUrl = "https://www.notion.so/",
-    isNotionTab = (tab) => tab?.url?.startsWith(notionUrl);
+  importScripts("api/notion-hosts.js");
+  const notionUrl = "https://app.notion.com/",
+    { matches, isNotionUrl } = globalThis.__enhancerNotionHosts,
+    isNotionTab = (tab) => isNotionUrl(tab?.url);
 
   const connectedTabs = new Set(),
     openMenuInTabs = new Set(),
@@ -168,8 +170,7 @@ if (IS_ELECTRON) {
       // manifest v3 userscripts require developer mode to be
       // enabled in the browser's extension settings
       try {
-        chrome.userScripts;
-        return true;
+        return Boolean(chrome.userScripts);
       } catch {
         return false;
       }
@@ -179,7 +180,6 @@ if (IS_ELECTRON) {
       // enhancer apis are not available in the worker in-browser,
       // manual steps are required to get nested values from the db
       const key = "customScript",
-        matches = ["*://*.notion.so/*"],
         coreId = "0f0bf8b6-eae6-4273-b307-8fc43f2ee082",
         profileId =
           (await queryDatabase([], "get", { key: "activeProfile" })) ??
@@ -189,21 +189,24 @@ if (IS_ELECTRON) {
         existingScripts = await chrome.userScripts.getScripts({ ids: [key] }),
         code = customScript?.content || "";
       if (existingScripts[0]) {
-        if (code === existingScripts[0]?.code) return;
-        chrome.userScripts.update([{ id: key, matches, js: [{ code }] }]);
+        if (!code) return chrome.userScripts.unregister({ ids: [key] });
+        if (code === existingScripts[0]?.js?.[0]?.code) return;
+        await chrome.userScripts.update([{ id: key, matches, js: [{ code }] }]);
       } else if (code) {
-        chrome.userScripts.register([{ id: key, matches, js: [{ code }] }]);
+        await chrome.userScripts.register([{ id: key, matches, js: [{ code }] }]);
       }
     };
-  registerCustomScript();
+  const refreshCustomScript = () => registerCustomScript().catch((error) =>
+    console.warn("[notion-enhancer] custom script registration unavailable", error));
+  refreshCustomScript();
 
   chrome.action.onClicked.addListener(openEnhancerMenu);
   // long-lived connection for rapid two-way messaging
   // b/w client and worker, primarily used for db wrapper:
   // https://developer.chrome.com/docs/extensions/mv3/messaging/
   chrome.runtime.onConnect.addListener((port) => {
-    const tabId = port.sender.tab.id;
-    connectedTabs.add(tabId);
+    const tabId = port.sender?.tab?.id;
+    if (tabId !== undefined) connectedTabs.add(tabId);
     port.onMessage.addListener(async (msg) => {
       if (msg?.channel !== "notion-enhancer") return;
       const { message, invocation } = msg;
@@ -217,7 +220,7 @@ if (IS_ELECTRON) {
           query === "import" ||
           (query === "set" &&
             ["activeProfile", "customScript"].includes(args.key));
-        if (customScriptChanged) registerCustomScript();
+        if (customScriptChanged) refreshCustomScript();
       }
       if (message === "load-complete") {
         if (!openMenuInTabs.has(tabId)) return;

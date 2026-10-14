@@ -46,7 +46,7 @@ const shouldLoadThemeOverrides = async (api, db) => {
 
 const insertMenu = async (api, db) => {
   const inviteMember = `.notion-sidebar-container .notion-sidebar [role="button"]:has(.inviteMember)`,
-    { html, addMutationListener, removeMutationListener } = api,
+    { html, addMutationListener } = api,
     { addKeyListener, platform, enhancerUrl, onMessage } = api,
     menuButtonIconStyle = await db.get("menuButtonIconStyle"),
     menuButtonLabel = await db.get("menuButtonLabel"),
@@ -82,7 +82,7 @@ const insertMenu = async (api, db) => {
     <//>`,
     $button = html`<${MenuButton}
       onclick=${$modal.open}
-      notifications=${(await checkForUpdate()) ? 1 : 0}
+      notifications=${0}
       themeOverridesLoaded=${await shouldLoadThemeOverrides(api, db)}
       icon="notion-enhancer${menuButtonIconStyle === "Monochrome"
         ? "?mask"
@@ -91,16 +91,31 @@ const insertMenu = async (api, db) => {
     <//>`;
   const appendToDom = () => {
     if (!document.body.contains($modal)) document.body.append($modal);
-    else if (!document.body.contains($button)) {
-      document.querySelector(inviteMember)?.after($button);
-    } else removeMutationListener(appendToDom);
+    if (!document.body.contains($button)) {
+      const $invite = document.querySelector(inviteMember),
+        $sidebar = document.querySelector(".notion-sidebar-container .notion-sidebar")
+          ?? document.querySelector(".notion-sidebar-container");
+      if ($invite) $invite.after($button);
+      else $sidebar?.append($button);
+    }
   };
   html`<${Tooltip}>
     <b>Configure the notion-enhancer and its mods</b>
   <//>`.attach($button, "right");
-  addMutationListener(inviteMember, appendToDom);
+  // Keep listening: Notion replaces the sidebar while switching workspaces.
+  addMutationListener(".notion-sidebar-container", appendToDom, { attributes: false, characterData: false });
   addMutationListener(".notion-app-inner", updateMenuTheme, { subtree: false });
   appendToDom();
+  // A slow or failed notification request must not delay the menu entry.
+  checkForUpdate().then((release) => {
+    if (release) {
+      const $badge = $button.querySelector(".ml-auto");
+      if ($badge) {
+        $badge.querySelector("span").textContent = "1";
+        $badge.classList.remove("hidden");
+      }
+    }
+  }).catch(console.warn);
 
   addKeyListener(openMenuHotkey, (event) => {
     event.preventDefault();

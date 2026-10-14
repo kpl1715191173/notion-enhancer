@@ -11,7 +11,11 @@
   "bin": "bin.mjs",
   "type": "module",
   "scripts": {
-    "build": "./scripts/build-browser-extension.sh",
+    "build": "node ./scripts/build-browser-extension.mjs",
+    "build:browser": "node ./scripts/build-browser-extension.mjs",
+    "verify": "node ./scripts/verify-extension.mjs",
+    "test": "node ./scripts/test-extension.mjs && node ./src/extensions/mermaid-replacement/test.cjs",
+    "test:browser": "node ./scripts/test-browser.cjs && node ./scripts/test-mermaid-browser.cjs",
     "vendor": "node ./scripts/vendor-dependencies.mjs"
   },
   "engines": {
